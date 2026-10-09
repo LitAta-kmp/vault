@@ -1,0 +1,12 @@
+# Здесь только отличия от стандартной конфигурации detekt.
+# Остальные правила берутся из дефолтного набора (buildUponDefaultConfig = true).
+
+naming:
+  FunctionNaming:
+    # Composable-функции по соглашению пишутся с заглавной буквы
+    ignoreAnnotated: ['Composable']
+
+complexity:
+  LongParameterList:
+    # У экранов Compose много параметров (состояние, колбэки, modifier) — это нормально
+    ignoreAnnotated: ['Composable']
