@@ -22,6 +22,7 @@ navigation = "2.9.2"
 sqlcipher = "4.16.0"
 sqldelight = "2.3.2"
 turbine = "1.2.1"
+detekt = "2.0.0-alpha.6"
 
 [libraries]
 kotlin-test = { module = "org.jetbrains.kotlin:kotlin-test", version.ref = "kotlin" }
@@ -79,3 +80,4 @@ composeCompiler = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "k
 kotlinMultiplatform = { id = "org.jetbrains.kotlin.multiplatform", version.ref = "kotlin" }
 kotlinSerialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
 sqldelight = { id = "app.cash.sqldelight", version.ref = "sqldelight" }
+detekt = { id = "dev.detekt", version.ref = "detekt" }
