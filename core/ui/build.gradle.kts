@@ -32,11 +32,13 @@ kotlin {
             implementation(libs.compose.uiToolingPreview)
             // api: BaseViewModel будет публичным типом, фичам нужен ViewModel из этой библиотеки
             api(libs.androidx.lifecycle.viewmodelCompose)
+            api(libs.kotlinx.coroutines.core)
             implementation(libs.androidx.lifecycle.runtimeCompose)
         }
         commonTest.dependencies {
             implementation(libs.kotlin.test)
             implementation(libs.kotlinx.coroutines.test)
+            implementation(libs.turbine)
         }
     }
 }
