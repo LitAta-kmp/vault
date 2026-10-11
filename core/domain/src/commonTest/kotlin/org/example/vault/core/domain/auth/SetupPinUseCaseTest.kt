@@ -1,0 +1,4 @@
+package org.example.vault.core.domain.auth
+
+class SetupPinUseCaseTest {
+}
