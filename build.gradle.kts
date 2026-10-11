@@ -19,4 +19,30 @@ subprojects {
         buildUponDefaultConfig = true
         config.setFrom(rootProject.file("config/detekt/detekt.yml"))
     }
+
+    // Сгенерированный код (например, Res.kt от Compose) не наш, его проверять не нужно
+    tasks.withType<dev.detekt.gradle.Detekt>().configureEach {
+        exclude("**/build/**", "**/generated/**")
+    }
+}
+
+// Единая команда проверки: .\gradlew.bat detektAll --continue
+// В KMP-модулях общая задача detekt ничего не анализирует, работают только задачи по source set'ам.
+// В androidApp (не KMP) работает обычная detekt.
+tasks.register("detektAll") {
+    group = "verification"
+    description = "Runs detekt for every source set of every module"
+    dependsOn(
+        provider {
+            subprojects.flatMap { sub ->
+                sub.tasks.matching { task ->
+                    val name = task.name
+                    val isSourceSetTask = name.startsWith("detekt") &&
+                            name.endsWith("SourceSet") &&
+                            !name.startsWith("detektBaseline")
+                    isSourceSetTask || (sub.path == ":androidApp" && name == "detekt")
+                }
+            }
+        },
+    )
 }
