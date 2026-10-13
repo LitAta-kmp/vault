@@ -1,4 +1,10 @@
 package org.example.vault.navigation
 
-class Destinations {
-}
+import kotlinx.serialization.Serializable
+
+// Маршруты как типы: ошибиться в строке нельзя, компилятор проверит
+@Serializable
+data object AuthDestination
+
+@Serializable
+data object VaultDestination
