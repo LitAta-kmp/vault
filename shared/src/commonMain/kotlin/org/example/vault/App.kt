@@ -1,22 +1,12 @@
 package org.example.vault
 
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Alignment
-import androidx.compose.ui.Modifier
+import org.example.vault.navigation.AppNavHost
 
-// Временная заглушка: настоящий корневой экран с навигацией появится вместе с auth-фичей
 @Composable
 fun App() {
     MaterialTheme {
-        Box(
-            modifier = Modifier.fillMaxSize(),
-            contentAlignment = Alignment.Center,
-        ) {
-            Text("Vault")
-        }
+        AppNavHost()
     }
 }
