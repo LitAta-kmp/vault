@@ -1,0 +1,25 @@
+-- Таблица записей хранилища. Колонки в camelCase, чтобы в Kotlin свойства назывались так же.
+CREATE TABLE EntryEntity (
+    id TEXT NOT NULL PRIMARY KEY,
+    title TEXT NOT NULL,
+    username TEXT NOT NULL,
+    password TEXT NOT NULL,
+    notes TEXT NOT NULL,
+    createdAt INTEGER NOT NULL,
+    updatedAt INTEGER NOT NULL
+);
+
+-- Новые и недавно изменённые записи сверху
+selectAll:
+SELECT * FROM EntryEntity ORDER BY updatedAt DESC;
+
+selectById:
+SELECT * FROM EntryEntity WHERE id = ?;
+
+-- Совпадает по смыслу с saveEntry из domain: добавить или заменить по id
+insertOrReplace:
+INSERT OR REPLACE INTO EntryEntity(id, title, username, password, notes, createdAt, updatedAt)
+VALUES (?, ?, ?, ?, ?, ?, ?);
+
+deleteById:
+DELETE FROM EntryEntity WHERE id = ?;

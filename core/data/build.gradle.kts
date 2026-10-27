@@ -3,7 +3,7 @@ import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 plugins {
     alias(libs.plugins.kotlinMultiplatform)
     alias(libs.plugins.androidMultiplatformLibrary)
-    // Плагин SQLDelight подключим на шаге 3 вместе с первым .sq-файлом
+    alias(libs.plugins.sqldelight)
 }
 
 kotlin {
@@ -35,6 +35,15 @@ kotlin {
             implementation(libs.kotlin.test)
             implementation(libs.kotlinx.coroutines.test)
             implementation(libs.turbine)
+        }
+    }
+}
+
+// SQLDelight по .sq-файлам генерирует Kotlin-класс базы и типобезопасные запросы
+sqldelight {
+    databases {
+        create("VaultDatabase") {
+            packageName.set("org.example.vault.core.data.db")
         }
     }
 }
