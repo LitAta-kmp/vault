@@ -20,9 +20,11 @@ subprojects {
         config.setFrom(rootProject.file("config/detekt/detekt.yml"))
     }
 
-    // Сгенерированный код (например, Res.kt от Compose) не наш, его проверять не нужно
     tasks.withType<dev.detekt.gradle.Detekt>().configureEach {
-        exclude("**/build/**", "**/generated/**")
+        // Сгенерированный код (Res.kt от Compose, запросы SQLDelight) не наш, его проверять не нужно.
+        // Фильтруем по полному пути: шаблоны вроде **/build/** смотрят только на путь внутри
+        // каталога исходников, а каталог build лежит выше и шаблоном не ловится
+        exclude { it.file.invariantSeparatorsPath.contains("/build/") }
     }
 }
 
