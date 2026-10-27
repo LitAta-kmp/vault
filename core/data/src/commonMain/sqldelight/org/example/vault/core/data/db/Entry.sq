@@ -23,3 +23,7 @@ VALUES (?, ?, ?, ?, ?, ?, ?);
 
 deleteById:
 DELETE FROM EntryEntity WHERE id = ?;
+
+-- Дешёвый запрос: заставляет SQLCipher сразу проверить ключ, а не на первом «настоящем» чтении
+countEntries:
+SELECT COUNT(*) FROM EntryEntity;

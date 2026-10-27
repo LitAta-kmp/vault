@@ -24,6 +24,7 @@ kotlin {
             implementation(libs.sqldelight.android.driver)
             implementation(libs.sqlcipher.android)
             implementation(libs.androidx.sqlite)
+            implementation(libs.koin.android)
         }
         commonMain.dependencies {
             implementation(project(":core:domain"))
