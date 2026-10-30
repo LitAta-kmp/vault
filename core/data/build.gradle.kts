@@ -38,6 +38,11 @@ kotlin {
             implementation(libs.turbine)
         }
     }
+
+    // Тесты репозитория работают на настоящем SQLite в памяти (без шифрования и эмулятора)
+    sourceSets.getByName("androidHostTest").dependencies {
+        implementation(libs.sqldelight.sqlite.driver)
+    }
 }
 
 // SQLDelight по .sq-файлам генерирует Kotlin-класс базы и типобезопасные запросы

@@ -14,12 +14,12 @@ import org.example.vault.core.domain.vault.VaultLockedException
 internal class VaultSession(
     private val factory: VaultDatabaseFactory,
     private val ioDispatcher: CoroutineDispatcher = Dispatchers.IO,
-) {
+) : DatabaseSource {
     private val mutex = Mutex()
     private var openVault: OpenVault? = null
 
     /** Открытая база. Бросает [VaultLockedException], если хранилище заперто. */
-    val database: VaultDatabase
+    override val database: VaultDatabase
         get() = openVault?.database ?: throw VaultLockedException()
 
     fun vaultExists(): Boolean = factory.databaseExists()
