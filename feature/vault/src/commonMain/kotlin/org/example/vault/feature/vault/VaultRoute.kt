@@ -1,16 +1,33 @@
 package org.example.vault.feature.vault
 
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Alignment
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.rememberUpdatedState
 import androidx.compose.ui.Modifier
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import org.koin.compose.viewmodel.koinViewModel
 
-/** Заглушка: настоящий экран хранилища появится на шаге со списком записей. */
+/** Точка входа фичи: связывает ViewModel с экраном. Куда переходить, решает вызывающий код. */
 @Composable
-fun VaultRoute(modifier: Modifier = Modifier) {
-    Box(modifier = modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
-        Text(text = "Vault is empty")
+fun VaultRoute(
+    onNavigateToEditor: (entryId: String?) -> Unit,
+    onNavigateToAuth: () -> Unit,
+    modifier: Modifier = Modifier,
+    viewModel: VaultViewModel = koinViewModel(),
+) {
+    val state by viewModel.state.collectAsStateWithLifecycle()
+    val currentOnNavigateToEditor by rememberUpdatedState(onNavigateToEditor)
+    val currentOnNavigateToAuth by rememberUpdatedState(onNavigateToAuth)
+
+    LaunchedEffect(viewModel) {
+        viewModel.events.collect { event ->
+            when (event) {
+                is VaultEvent.NavigateToEditor -> currentOnNavigateToEditor(event.entryId)
+                VaultEvent.NavigateToAuth -> currentOnNavigateToAuth()
+            }
+        }
     }
+
+    VaultScreen(state = state, onAction = viewModel::onAction, modifier = modifier)
 }
